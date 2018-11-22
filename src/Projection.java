@@ -1,5 +1,10 @@
+import java.io.Serializable;
 
-public class Projection {
+public class Projection implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4805570389453823828L;
 	private int type; 	//movie or projection
 	private int time_hour;
 	private int day_month;
@@ -15,7 +20,7 @@ public class Projection {
 		this.day_month = day_month;
 		this.month = month;
 		this.name = name;
-		this.hall = hall;
+		this.setHall(hall);
 	}
 	
 	public int getType() {
@@ -53,6 +58,14 @@ public class Projection {
 	public String toString() {
 		return "Projection [type=" + type + ", time=" + time_hour + ", date" + day_month + "/" + month
 				+ ", name=" + name + "]";
+	}
+
+	public int getHall() {
+		return hall;
+	}
+
+	public void setHall(int hall) {
+		this.hall = hall;
 	}
 	
 	

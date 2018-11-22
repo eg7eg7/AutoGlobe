@@ -27,5 +27,10 @@ public class Database {
 		if(!programmingList.contains(p))
 			programmingList.add(p);
 	}
+
+	@Override
+	public String toString() {
+		return programmingList.toString();
+	}
 	
 }
