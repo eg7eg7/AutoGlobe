@@ -5,7 +5,7 @@ public class Projection implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4805570389453823828L;
-	private int type; // movie or projection
+	private String type; // movie or projection
 	private int time_hour;
 	private String time_hour_string;
 	private String time_break_string;
@@ -18,8 +18,8 @@ public class Projection implements Serializable {
 	private String date;
 	private String projection_name;
 
-	private final int MOVIE = 1;
-	private final int EVENT = 2;
+	private final String MOVIE = "Movie";
+	private final String EVENT = "Event";
 	private final String NO_BREAK = "No intermission";
 
 	public Projection(String name, String time_hour, String time_break, String time_end, String date) {
@@ -30,11 +30,11 @@ public class Projection implements Serializable {
 		setDate(date);
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

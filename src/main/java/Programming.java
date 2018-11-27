@@ -69,12 +69,6 @@ public class Programming implements Serializable {
 			Row row2;
 			Cell cell1;
 			Cell cell2;
-			/*
-			 * while (iterator.hasNext()) { Row nextRow = iterator.next(); Iterator<Cell>
-			 * cellIterator = nextRow.cellIterator(); while (cellIterator.hasNext()) { Cell
-			 * cell = cellIterator.next(); System.out.print(cell.getStringCellValue());
-			 * System.out.print(" "); } System.out.println(); }
-			 */
 
 			while (iterator.hasNext()) {
 				row1 = iterator.next();
