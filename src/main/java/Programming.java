@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.function.Consumer;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -34,7 +36,7 @@ public class Programming implements Serializable {
 	private int state = BEGIN;
 
 	public Programming() {
-		movie_titles = new HashSet<String>();
+		movie_titles = new TreeSet<String>();
 		// movie_hall_movies = new HashMap<Integer, Map<String,Set<Integer>>>();
 		projections = new HashMap<Integer, Set<Projection>>();
 	}
@@ -160,18 +162,23 @@ public class Programming implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder b = new StringBuilder();
+		final StringBuilder b = new StringBuilder();
 		System.out.println(Title);
 		for(int i=1;i<=main.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
 			{
 
-				System.out.println("HALL " + i);
-				System.out.println(projections.get(i));
+				b.append("HALL " + i + "\n" + projections.get(i));
 			}
 		}
 		
+		movie_titles.forEach(new Consumer<String>() {
+			public void accept(String s) {
+				b.append(s + "\n");
+			}
+		});
+			
 		
 		return b.toString();
 	}
