@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,18 +25,15 @@ public class Programming implements Serializable {
 	/**
 	 * 
 	 */
-
+	private final static int BEGIN = 0;
 	private final static int READ_DATE = 1;
 	private final static int HALL_NUM = 2;
 	private final static int READ_MOVIES = 3;
-	private final static int END_DAY = 5;
-	private final static int END = 4;
-	private final static String LAST_HALL = "18";
 
 	private static final long serialVersionUID = 1L;
 	Set<String> movie_titles;
 	// Set of movies for the week
-
+	String[] Title;
 	Map<Integer, Set<Projection>> projections;
 
 	private int state = READ_DATE;
@@ -45,13 +43,13 @@ public class Programming implements Serializable {
 	// state 4 - read projection name
 
 	public Programming() {
-		super();
 		movie_titles = new HashSet<String>();
 		// movie_hall_movies = new HashMap<Integer, Map<String,Set<Integer>>>();
 		projections = new HashMap<Integer, Set<Projection>>();
 	}
 
 	public Programming(String xlsFilePath) {
+		this();
 		String date = "";
 		String hall = "";
 		String name;
@@ -82,9 +80,13 @@ public class Programming implements Serializable {
 				row1 = iterator.next();
 				cellIterator = row1.cellIterator();
 				switch (state) {
+				case BEGIN:
 				case READ_DATE:
 					cell1 = cellIterator.next();
+					
 					String[] header = cell1.getStringCellValue().split(" ");
+					if(state == BEGIN)
+						Title = header;
 					date = header[header.length - 1];
 					main.log("Read date: " + date + " at " + cell1.getAddress());
 					state = HALL_NUM;
@@ -106,6 +108,7 @@ public class Programming implements Serializable {
 						String value = cell2.getStringCellValue();
 
 						if (!value.equals("")) {
+						
 							main.log("Read movie " + value + " at " + cell2.getAddress());
 							name = value;
 							start_time = cell1.getStringCellValue();
@@ -119,15 +122,14 @@ public class Programming implements Serializable {
 							if (cellIterator.hasNext())
 								cell1 = cellIterator.next();
 							Projection p = new Projection(name, start_time, break_time, end_time, date);
-							System.out.println(p);
-							//addProjection(Integer.parseInt(hall), p);
+							addProjection(Integer.parseInt(hall), p);
 
 						}
 					}
 
 					
 					state = HALL_NUM;
-					if(hall.equals(LAST_HALL))
+					if(Integer.parseInt(hall) == main.getMAX_HALL())
 						state = READ_DATE;
 				}
 
@@ -138,11 +140,10 @@ public class Programming implements Serializable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 	}
 
 	public void addProjection(int hall_num, Projection p) {
-		if (projections.get(hall_num) == null) {
+		if (!projections.containsKey(hall_num)) {
 			projections.put(hall_num, new HashSet<Projection>());
 		}
 		projections.get(hall_num).add(p);
@@ -162,4 +163,23 @@ public class Programming implements Serializable {
 
 		return workbook;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for(int i=1;i<=main.getMAX_HALL();i++)
+		{
+			if(projections.containsKey(i))
+			{
+
+				System.out.println("HALL " + i);
+				System.out.println(projections.get(i));
+			}
+		}
+		
+		
+		return b.toString();
+	}
+	
+	
 }
