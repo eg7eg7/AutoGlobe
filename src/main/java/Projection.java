@@ -18,9 +18,7 @@ public class Projection implements Serializable {
 	private String date;
 	private String projection_name;
 
-	private final String MOVIE = "Movie";
-	private final String EVENT = "Event";
-	private final String NO_BREAK = "No intermission";
+
 
 	public Projection(String name, String time_hour, String time_break, String time_end, String date) {
 		projection_name = name;
@@ -119,13 +117,13 @@ public class Projection implements Serializable {
 		try {
 			if (!time_break.equals("")) // movie
 			{
-				type = MOVIE;
+				type = main.MOVIE;
 				time_break = time_break.replace("(", "").replace(")", "");
 				time_break_string = time_break;
 				this.time_break = Integer.parseInt(time_break.replace(":", ""));
 			} else {
-				type = EVENT;
-				time_break_string = NO_BREAK;
+				type = main.EVENT;
+				time_break_string = main.NO_BREAK;
 			}
 		} catch (Exception e) {
 			main.log(e.toString());

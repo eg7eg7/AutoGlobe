@@ -70,6 +70,11 @@ public class Programming implements Serializable {
 
 	public Programming(String xlsFilePath) {
 		this();
+		readExcel(xlsFilePath);
+		
+	}
+
+	private void readExcel(String xlsFilePath) {
 		String date = "";
 		String hall = "";
 		String name;
@@ -100,7 +105,10 @@ public class Programming implements Serializable {
 					
 					String[] header = cell1.getStringCellValue().split(" ");
 					if(state == BEGIN)
+					{
 						Title = toTitle(header);
+						main.log("Reading Programming for" + Title);
+					}
 					date = header[header.length - 1];
 					main.log("Read date: " + date + " at " + cell1.getAddress());
 					state = HALL_NUM;
@@ -118,7 +126,7 @@ public class Programming implements Serializable {
 					cellIterator2 = row2.cellIterator();
 					while (cellIterator2.hasNext()) {
 
-						cell2 = cellIterator2.next();
+						cell2 = cellIterator2.next();//movie viewer
 						String value = cell2.getStringCellValue();
 
 						if (!value.equals("")) {
@@ -135,9 +143,25 @@ public class Programming implements Serializable {
 							main.log("Read time " + end_time + " at " + cell1.getAddress());
 							if (cellIterator.hasNext())
 								cell1 = cellIterator.next();
+							if(cellIterator2.hasNext())
+								cell2 = cellIterator2.next();
+							if(cellIterator2.hasNext())
+								cell2 = cellIterator2.next();
 							Projection p = new Projection(name, start_time, break_time, end_time, date);
 							addProjection(Integer.parseInt(hall), p);
+						}
+						else
+						{
+							cell1 = cellIterator.next();
+							cell1 = cellIterator.next();
+							cell1 = cellIterator.next();
 
+							if(cellIterator2.hasNext())
+								cell2 = cellIterator2.next();
+							if(cellIterator2.hasNext())
+								cell2 = cellIterator2.next();
+							if(cellIterator2.hasNext())
+								cell2 = cellIterator2.next();
 						}
 					}
 
@@ -154,6 +178,7 @@ public class Programming implements Serializable {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		
 	}
 
 	private String toTitle(String[] header) {
@@ -170,7 +195,8 @@ public class Programming implements Serializable {
 			projections.put(hall_num, new HashSet<Projection>());
 		}
 		projections.get(hall_num).add(p);
-		movie_titles.add(p.getName());
+		if(p.getType().equals(main.MOVIE))
+			movie_titles.add(p.getName());
 	}
 
 	private static Workbook getRelevantWorkbook(FileInputStream inputStream, String excelFilePath) throws IOException {
@@ -196,7 +222,7 @@ public class Programming implements Serializable {
 			if(projections.containsKey(i))
 			{
 
-				b.append("HALL " + i + "\n" + projections.get(i));
+				b.append("\nHALL " + i + "\n" + projections.get(i));
 			}
 		}
 		

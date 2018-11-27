@@ -43,8 +43,27 @@ public class Database {
 		{
 
 			System.out.println("No expired movies");
+			return;
 		}
 
+		Set<String> old_movies = programmingList.get(i-2).getMovie_titles();
+		Set<String> new_movies = programmingList.get(i-1).getMovie_titles();
+		Set<String> removed_movies = new HashSet<String>();
+		
+		
+		String[] old_movies_arr = old_movies.stream().toArray(n -> new String[n]);
+		
+		
+		for(int j=0;j<old_movies_arr.length;j++)
+		{
+			String movie_name = old_movies_arr[j];
+			if(!new_movies.contains(movie_name))
+			{
+				removed_movies.add(movie_name);
+			}
+		}
+		
+		System.out.println(removed_movies);
 		
 	}
 

@@ -1,0 +1,372 @@
+reading 01.xls
+Reading Programming forפרוגרמציה יומית לקולנוע גלובוס מקס כפר סבא 
+Read date: 10/11/2018 at A1
+Read hall num: 1 at A3
+Read movie אויר קדוש at E4
+Read time 19:45 at E3
+Read time (20:33) at F3
+Read time 21:28 at G3
+Read movie בני ערובה at H4
+Read time 21:45 at H3
+Read time (22:45) at I3
+Read time 23:51 at J3
+Read hall num: 5 at A5
+Read movie בל קנטו at E6
+Read time 16:40 at E5
+Read time (17:39) at F5
+Read time 18:44 at G5
+Read movie בל קנטו at H6
+Read time 19:10 at H5
+Read time (20:09) at I5
+Read time 21:14 at J5
+Read movie בל קנטו at K6
+Read time 21:40 at K5
+Read time (22:39) at L5
+Read time 23:44 at M5
+Read hall num: 6 at A7
+Read movie טובת הילד at E8
+Read time 16:35 at E7
+Read time (17:35) at F7
+Read time 18:42 at G7
+Read movie כוכב נולד ATM2D at H8
+Read time 19:00 at H7
+Read time (20:15) at I7
+Read time 21:37 at J7
+Read movie טובת הילד at K8
+Read time 22:00 at K7
+Read time (23:00) at L7
+Read time 00:07 at M7
+Read hall num: 7 at A9
+Read movie כוכב נולד ATM2D at E10
+Read time 16:20 at E9
+Read time (17:35) at F9
+Read time 18:57 at G9
+Read movie טובת הילד at H10
+Read time 19:20 at H9
+Read time (20:20) at I9
+Read time 21:27 at J9
+Read movie כוכב נולד ATM2D at K10
+Read time 21:50 at K9
+Read time (23:05) at L9
+Read time 00:27 at M9
+Read hall num: 8 at A11
+Read movie ונום ATM2D at E12
+Read time 16:50 at E11
+Read time (17:54) at F11
+Read time 19:04 at G11
+Read movie נורמנדי בעירום at H12
+Read time 19:25 at H11
+Read time (20:25) at I11
+Read time 21:32 at J11
+Read movie נורמנדי בעירום at K12
+Read time 21:50 at K11
+Read time (22:50) at L11
+Read time 23:57 at M11
+Read hall num: 9 at A13
+Read movie שרוכים at E14
+Read time 17:00 at E13
+Read time (17:59) at F13
+Read time 19:04 at G13
+Read movie שרוכים at H14
+Read time 19:20 at H13
+Read time (20:19) at I13
+Read time 21:24 at J13
+Read movie שרוכים at K14
+Read time 21:40 at K13
+Read time (22:39) at L13
+Read time 23:44 at M13
+Read hall num: 10 at A15
+Read movie ע-הבית עם השעון המסתורי ע at E16
+Read time 17:20 at E15
+Read time (18:20) at F15
+Read time 19:26 at G15
+Read movie הג'נטלמן והאקדח at H16
+Read time 19:45 at H15
+Read time (20:39) at I15
+Read time 21:40 at J15
+Read movie נקמה חריפה at K16
+Read time 22:00 at K15
+Read time (22:59) at L15
+Read time 00:04 at M15
+Read hall num: 11 at A17
+Read movie חטופות at E18
+Read time 17:35 at E17
+Read time (18:26) at F17
+Read time 19:23 at G17
+Read movie חטופות at H18
+Read time 19:40 at H17
+Read time (20:31) at I17
+Read time 21:28 at J17
+Read movie חטופות at K18
+Read time 21:45 at K17
+Read time (22:36) at L17
+Read time 23:33 at M17
+Read hall num: 12 at A19
+Read movie ע-מפלצות בשלג ע at E20
+Read time 16:50 at E19
+Read time (17:46) at F19
+Read time 18:48 at G19
+Read movie ג'וני אינגליש 3.0 at H20
+Read time 19:20 at H19
+Read time (20:12) at I19
+Read time 21:10 at J19
+Read movie זמנים קשוחים באל רויאל ATM2D at K20
+Read time 21:45 at K19
+Read time (23:03) at L19
+Read time 00:27 at M19
+Read hall num: 13 at A21
+Read movie זמנים קשוחים באל רויאל ATM2D at E22
+Read time 19:00 at E21
+Read time (20:18) at F21
+Read time 21:42 at G21
+Read movie חכם בלילה at H22
+Read time 22:10 at H21
+Read time (23:13) at I21
+Read time 00:23 at J21
+Read hall num: 14 at A23
+Read movie חכם בלילה at E24
+Read time 19:10 at E23
+Read time (20:13) at F23
+Read time 21:23 at G23
+Read movie ג'וני אינגליש 3.0 at H24
+Read time 21:50 at H23
+Read time (22:42) at I23
+Read time 23:40 at J23
+Read hall num: 15 at A25
+Read movie חיפוש at E26
+Read time 19:35 at E25
+Read time (20:34) at F25
+Read time 21:39 at G25
+Read movie חיפוש at H26
+Read time 22:00 at H25
+Read time (22:59) at I25
+Read time 00:04 at J25
+Read hall num: 16 at A27
+Read movie תיק נעדר at E28
+Read time 19:15 at E27
+Read time (20:19) at F27
+Read time 21:30 at G27
+Read movie תיק נעדר at H28
+Read time 21:50 at H27
+Read time (22:54) at I27
+Read time 00:05 at J27
+Read hall num: 17 at A29
+Read movie הגננת at E30
+Read time 19:20 at E29
+Read time (20:16) at F29
+Read time 21:18 at G29
+Read movie הגננת at H30
+Read time 21:40 at H29
+Read time (22:36) at I29
+Read time 23:38 at J29
+Read hall num: 18 at A31
+Read movie ונום ATM2D at E32
+Read time 21:50 at E31
+Read time (22:54) at F31
+Read time 00:04 at G31
+Read date: 10/12/2018 at A34
+Read hall num: 1 at A36
+Read movie Ru-כוכב נולד - רוסית at E37
+Read time 19:05 at E36
+Read time (20:20) at F36
+Read time 21:42 at G36
+Read movie בני ערובה at H37
+Read time 22:00 at H36
+Read time (23:00) at I36
+Read time 00:06 at J36
+Read hall num: 5 at A38
+Read movie בל קנטו at E39
+Read time 16:40 at E38
+Read time (17:39) at F38
+Read time 18:44 at G38
+Read movie בל קנטו at H39
+Read time 19:10 at H38
+Read time (20:09) at I38
+Read time 21:14 at J38
+Read movie בל קנטו at K39
+Read time 21:40 at K38
+Read time (22:39) at L38
+Read time 23:44 at M38
+Read movie ונום ATM2D at N39
+Read time 00:10 at N38
+Read time (01:14) at O38
+Read time 02:24 at P38
+Read hall num: 6 at A40
+Read movie טובת הילד at E41
+Read time 16:35 at E40
+Read time (17:35) at F40
+Read time 18:42 at G40
+Read movie כוכב נולד ATM2D at H41
+Read time 19:00 at H40
+Read time (20:15) at I40
+Read time 21:37 at J40
+Read movie טובת הילד at K41
+Read time 22:00 at K40
+Read time (23:00) at L40
+Read time 00:07 at M40
+Read hall num: 7 at A42
+Read movie כוכב נולד ATM2D at E43
+Read time 16:20 at E42
+Read time (17:35) at F42
+Read time 18:57 at G42
+Read movie טובת הילד at H43
+Read time 19:20 at H42
+Read time (20:20) at I42
+Read time 21:27 at J42
+Read movie כוכב נולד ATM2D at K43
+Read time 21:50 at K42
+Read time (23:05) at L42
+Read time 00:27 at M42
+Read hall num: 8 at A44
+Read movie ונום ATM2D at E45
+Read time 16:50 at E44
+Read time (17:54) at F44
+Read time 19:04 at G44
+Read movie נורמנדי בעירום at H45
+Read time 19:25 at H44
+Read time (20:25) at I44
+Read time 21:32 at J44
+Read movie נורמנדי בעירום at K45
+Read time 21:50 at K44
+Read time (22:50) at L44
+Read time 23:57 at M44
+Read movie חכם בלילה at N45
+Read time 00:15 at N44
+Read time (01:18) at O44
+Read time 02:28 at P44
+Read hall num: 9 at A46
+Read movie שרוכים at E47
+Read time 17:00 at E46
+Read time (17:59) at F46
+Read time 19:04 at G46
+Read movie שרוכים at H47
+Read time 19:20 at H46
+Read time (20:19) at I46
+Read time 21:24 at J46
+Read movie שרוכים at K47
+Read time 21:40 at K46
+Read time (22:39) at L46
+Read time 23:44 at M46
+Read movie ג'וני אינגליש 3.0 at N47
+Read time 00:00 at N46
+Read time (00:52) at O46
+Read time 01:50 at P46
+Read hall num: 10 at A48
+Read movie ע-הבית עם השעון המסתורי ע at E49
+Read time 17:20 at E48
+Read time (18:20) at F48
+Read time 19:26 at G48
+Read movie הג'נטלמן והאקדח at H49
+Read time 19:45 at H48
+Read time (20:39) at I48
+Read time 21:40 at J48
+Read movie נקמה חריפה at K49
+Read time 22:00 at K48
+Read time (22:59) at L48
+Read time 00:04 at M48
+Read movie נקמה חריפה at N49
+Read time 00:20 at N48
+Read time (01:19) at O48
+Read time 02:24 at P48
+Read hall num: 11 at A50
+Read movie חטופות at E51
+Read time 17:35 at E50
+Read time (18:26) at F50
+Read time 19:23 at G50
+Read movie חטופות at H51
+Read time 19:40 at H50
+Read time (20:31) at I50
+Read time 21:28 at J50
+Read movie חטופות at K51
+Read time 21:50 at K50
+Read time (22:41) at L50
+Read time 23:38 at M50
+Read movie חטופות at N51
+Read time 00:00 at N50
+Read time (00:51) at O50
+Read time 01:48 at P50
+Read hall num: 12 at A52
+Read movie ג'וני אינגליש 3.0 at E53
+Read time 19:20 at E52
+Read time (20:12) at F52
+Read time 21:10 at G52
+Read movie זמנים קשוחים באל רויאל ATM2D at H53
+Read time 21:45 at H52
+Read time (23:03) at I52
+Read time 00:27 at J52
+Read hall num: 13 at A54
+Read movie זמנים קשוחים באל רויאל ATM2D at E55
+Read time 19:00 at E54
+Read time (20:18) at F54
+Read time 21:42 at G54
+Read movie חכם בלילה at H55
+Read time 22:10 at H54
+Read time (23:13) at I54
+Read time 00:23 at J54
+Read hall num: 14 at A56
+Read movie חכם בלילה at E57
+Read time 19:10 at E56
+Read time (20:13) at F56
+Read time 21:23 at G56
+Read movie ג'וני אינגליש 3.0 at H57
+Read time 21:50 at H56
+Read time (22:42) at I56
+Read time 23:40 at J56
+Read hall num: 15 at A58
+Read movie הגננת at E59
+Read time 19:35 at E58
+Read time (20:31) at F58
+Read time 21:33 at G58
+Read movie חיפוש at H59
+Read time 22:00 at H58
+Read time (22:59) at I58
+Read time 00:04 at J58
+Read hall num: 16 at A60
+Read movie תיק נעדר at E61
+Read time 19:15 at E60
+Read time (20:19) at F60
+Read time 21:30 at G60
+Read movie תיק נעדר at H61
+Read time 21:50 at H60
+Read time (22:54) at I60
+Read time 00:05 at J60
+Read hall num: 17 at A62
+Read movie Ru-ג'וני אינגליש 3.0 - רוסית at E63
+Read time 19:30 at E62
+Read time (20:22) at F62
+Read time 21:20 at G62
+Read movie הגננת at H63
+Read time 21:40 at H62
+Read time (22:36) at I62
+Read time 23:38 at J62
+Read hall num: 18 at A64
+Read movie ונום ATM2D at E65
+Read time 19:00 at E64
+Read time (20:04) at F64
+Read time 21:14 at G64
+Read movie ונום ATM2D at H65
+Read time 21:50 at H64
+Read time (22:54) at I64
+Read time 00:04 at J64
+Read date: 10/13/2018 at A67
+Read hall num: 1 at A69
+Read movie ע-החברים הסודיים של לואי ע at E70
+Read time 13:20 at E69
+Read time (14:10) at F69
+Read time 15:07 at G69
+Read movie ע-מילה של כלב ע at H70
+Read time 15:30 at H69
+Read time (16:23) at I69
+Read time 17:23 at J69
+Read movie ע-החברים הסודיים של לואי ע at K70
+Read time 17:40 at K69
+Read time (18:30) at L69
+Read time 19:27 at M69
+Read movie אויר קדוש at N70
+Read time 19:45 at N69
+Read time (20:33) at O69
+Read time 21:28 at P69
+Read movie בני ערובה at Q70
+Read time 21:45 at Q69
+Read time (22:45) at R69
+Read time 23:51 at S69
