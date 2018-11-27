@@ -7,7 +7,11 @@ public class main {
 	
 	public static void main(String[] args) {
 		Database db = new Database();
+		db.addProgramming(new Programming("1.xls"));
+		db.addProgramming(new Programming("2.xls"));
+		db.addProgramming(new Programming("3.xls"));
 		db.addProgramming(new Programming("4.xls"));
+		db.showExpiredMovies(4);
 		System.out.println(db);
 
 	}

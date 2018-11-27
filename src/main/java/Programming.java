@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,9 +35,37 @@ public class Programming implements Serializable {
 	private int state = BEGIN;
 
 	public Programming() {
-		movie_titles = new TreeSet<String>();
+		movie_titles = new HashSet<String>();
 		// movie_hall_movies = new HashMap<Integer, Map<String,Set<Integer>>>();
 		projections = new HashMap<Integer, Set<Projection>>();
+	}
+
+	public Set<String> getMovie_titles() {
+		return movie_titles;
+	}
+
+	public void setMovie_titles(Set<String> movie_titles) {
+		this.movie_titles = movie_titles;
+	}
+
+	public String getTitle() {
+		return Title;
+	}
+
+	public void setTitle(String title) {
+		Title = title;
+	}
+
+	public Map<Integer, Set<Projection>> getProjections() {
+		return projections;
+	}
+
+	public void setProjections(Map<Integer, Set<Projection>> projections) {
+		this.projections = projections;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Programming(String xlsFilePath) {
