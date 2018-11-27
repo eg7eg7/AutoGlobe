@@ -1,16 +1,11 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -33,14 +28,10 @@ public class Programming implements Serializable {
 	private static final long serialVersionUID = 1L;
 	Set<String> movie_titles;
 	// Set of movies for the week
-	String[] Title;
+	String Title;
 	Map<Integer, Set<Projection>> projections;
 
-	private int state = READ_DATE;
-	// state 1 - waiting to read a date
-	// state 2 - waiting to read hall number
-	// state 3 - try to read start break end if not, start - end
-	// state 4 - read projection name
+	private int state = BEGIN;
 
 	public Programming() {
 		movie_titles = new HashSet<String>();
@@ -80,7 +71,7 @@ public class Programming implements Serializable {
 					
 					String[] header = cell1.getStringCellValue().split(" ");
 					if(state == BEGIN)
-						Title = header;
+						Title = toTitle(header);
 					date = header[header.length - 1];
 					main.log("Read date: " + date + " at " + cell1.getAddress());
 					state = HALL_NUM;
@@ -136,6 +127,15 @@ public class Programming implements Serializable {
 		}
 	}
 
+	private String toTitle(String[] header) {
+		StringBuilder b = new StringBuilder("");
+		for(int i=0;i<header.length-2;i++)
+		{
+			b.append(header[i]+" ");
+		}
+		return b.toString();
+	}
+
 	public void addProjection(int hall_num, Projection p) {
 		if (!projections.containsKey(hall_num)) {
 			projections.put(hall_num, new HashSet<Projection>());
@@ -161,6 +161,7 @@ public class Programming implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder b = new StringBuilder();
+		System.out.println(Title);
 		for(int i=1;i<=main.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
