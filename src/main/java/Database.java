@@ -10,14 +10,12 @@ import java.util.Set;
 
 public class Database {
 	private static ArrayList<Programming> programmingList = new ArrayList<Programming>();
-	private static String globeFile = "Autoglobe.dat";
+	private static String globeFile = "weeklyprog.dat";
 	
 	public Database() {
 	}
 
 	public void fillDatabaseFromFile() {
-		// TODO clean previous data and read again
-		// TODO Get file location here
 		programmingList.clear();
 		int num_programs = 0;
 		
@@ -38,7 +36,7 @@ public class Database {
 				
 		}
 		catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Data file cannot be found");
 		}
 		finally {
 			if(oos !=null)
@@ -62,6 +60,7 @@ public class Database {
 		if (!programmingList.contains(p))
 		{
 			programmingList.add(p);
+			programmingList.sort(new ProgrammingCompare());
 		}
 	}
 
@@ -70,11 +69,18 @@ public class Database {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0;i<programmingList.size();i++)
 		{
-			sb.append(programmingList.get(i).toString());
-			sb.append(showNewMovies(i));
-			sb.append(showExpiredMovies(i));
+			sb.append(programmingList.get(i).getProgram_date() + "\n");
 		}
 		return sb.toString();
+	}
+	
+	public void printPrettyProgram(int i)
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(programmingList.get(i).toString());
+		sb.append(showNewMovies(i));
+		sb.append(showExpiredMovies(i));
+		System.out.println(sb.toString());
 	}
 
 	public String showExpiredMovies(int i) {

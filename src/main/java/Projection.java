@@ -5,18 +5,25 @@ public class Projection implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4805570389453823828L;
+	
 	private String type; // movie or projection
+	
 	private int time_hour;
+	
 	private String time_hour_string;
 	private String time_break_string;
 	private String time_end_string;
+	
 	private int time_break;
 	private int time_end;
+	
 	private int day_month;
 	private int month;
 	private int year;
+	
 	private String date;
 	private String projection_name;
+
 
 
 
@@ -175,4 +182,76 @@ public class Projection implements Serializable {
 		this.year = Integer.parseInt(s[2]);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + day_month;
+		result = prime * result + month;
+		result = prime * result + ((projection_name == null) ? 0 : projection_name.hashCode());
+		result = prime * result + time_break;
+		result = prime * result + ((time_break_string == null) ? 0 : time_break_string.hashCode());
+		result = prime * result + time_end;
+		result = prime * result + ((time_end_string == null) ? 0 : time_end_string.hashCode());
+		result = prime * result + time_hour;
+		result = prime * result + ((time_hour_string == null) ? 0 : time_hour_string.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Projection other = (Projection) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (day_month != other.day_month)
+			return false;
+		if (month != other.month)
+			return false;
+		if (projection_name == null) {
+			if (other.projection_name != null)
+				return false;
+		} else if (!projection_name.equals(other.projection_name))
+			return false;
+		if (time_break != other.time_break)
+			return false;
+		if (time_break_string == null) {
+			if (other.time_break_string != null)
+				return false;
+		} else if (!time_break_string.equals(other.time_break_string))
+			return false;
+		if (time_end != other.time_end)
+			return false;
+		if (time_end_string == null) {
+			if (other.time_end_string != null)
+				return false;
+		} else if (!time_end_string.equals(other.time_end_string))
+			return false;
+		if (time_hour != other.time_hour)
+			return false;
+		if (time_hour_string == null) {
+			if (other.time_hour_string != null)
+				return false;
+		} else if (!time_hour_string.equals(other.time_hour_string))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
 }
