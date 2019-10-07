@@ -34,10 +34,9 @@ public class Programming implements Serializable {
 	private String filename;
 	private String program_date=null;
 	private int state = BEGIN;
-
+	private int num_projections = 0;
 	public Programming() {
 		movie_titles = new HashSet<String>();
-		// movie_hall_movies = new HashMap<Integer, Map<String,Set<Integer>>>();
 		projections = new HashMap<Integer, Set<Projection>>();
 		movies_hall = new HashMap<Integer, Set<String>>();
 	}
@@ -50,10 +49,13 @@ public class Programming implements Serializable {
 		this.movie_titles = movie_titles;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + num_projections;
 		result = prime * result + ((program_date == null) ? 0 : program_date.hashCode());
 		return result;
 	}
@@ -67,6 +69,8 @@ public class Programming implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Programming other = (Programming) obj;
+		if (num_projections != other.num_projections)
+			return false;
 		if (program_date == null) {
 			if (other.program_date != null)
 				return false;
@@ -98,7 +102,7 @@ public class Programming implements Serializable {
 	public Programming(String xlsFilePath) {
 		this();
 		readExcel(xlsFilePath);
-		for(int i=1;i<=main.getMAX_HALL();i++)
+		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
 			{
@@ -107,7 +111,9 @@ public class Programming implements Serializable {
 					if(movies_hall.get(i) == null)
 						movies_hall.put(i, new HashSet<String>());
 					movies_hall.get(i).add(p.getName());
+					
 				}
+				num_projections+= projections.get(i).size();
 			}
 		}
 	}
@@ -126,46 +132,61 @@ public class Programming implements Serializable {
 			file = new File(xlsFilePath);
 			System.out.println("Reading from : " + file.getAbsoluteFile());
 			FileInputStream inputStream = new FileInputStream(file);
-			main.log("reading " + xlsFilePath);
+			Whiskers.log("reading " + xlsFilePath);
 			Workbook workbook = getRelevantWorkbook(inputStream, xlsFilePath);
-			Sheet sheet = workbook.getSheetAt(main.getCHOSEN_SHEET());
+			Sheet sheet = workbook.getSheetAt(Whiskers.getCHOSEN_SHEET());
+			//workbook.getNumberOfSheets();
 			Iterator<Row> iterator = sheet.iterator();
 			Iterator<Cell> cellIterator = null;
 			Iterator<Cell> cellIterator2 = null;
 			Row row1;
 			Row row2;
-			Cell cell1;
+			Cell cell1=null;
 			Cell cell2;
 			String value=null;
+			boolean from_hall =false;
 			while (iterator.hasNext()) {
-				row1 = iterator.next();
-				cellIterator = row1.cellIterator();
+				if(!from_hall)
+				{
+					row1 = iterator.next();
+					cellIterator = row1.cellIterator();
+					
+				}
 				switch (state) {
 				case BEGIN:
 				case READ_DATE:
-					cell1 = cellIterator.next();
-
+					if(!from_hall)
+						{
+						cell1 = cellIterator.next();
+						
+						}
+					else
+						from_hall = false;
+					
 					String[] header = cell1.getStringCellValue().split(" ");
 					if(state == BEGIN)
 					{
 						Title = toTitle(header);
-						main.log("Reading Programming for" + Title);
+						Whiskers.log("Reading Programming for" + Title);
 					}
 					date = header[header.length - 1];
-					main.log("Read date: " + date + " at " + cell1.getAddress());
+					Whiskers.log("Read date: " + date + " at " + cell1.getAddress());
 					state = HALL_NUM;
-					row1 = iterator.next(); // skip "Ulam" row
-
+					row1 = iterator.next();
 					break;
 				case HALL_NUM:
 					cell1 = cellIterator.next();
+					
 					hall = cell1.getStringCellValue();
-					main.log("Read hall num: " + hall + " at " + cell1.getAddress());
+					Whiskers.log("Read hall num: " + hall + " at " + cell1.getAddress());
 					try {
 						Integer.parseInt(hall);
+						
 					}
 					catch(NumberFormatException e)
 					{
+						Whiskers.log("change state to READ DATE");
+						from_hall = true;
 						state = READ_DATE;
 						break;
 					}
@@ -179,21 +200,21 @@ public class Programming implements Serializable {
 					while (cellIterator2.hasNext()) {
 						cell2 = cellIterator2.next();//movie viewer
 						value = cell2.getStringCellValue();
-						main.log("trying to read " + value);
+						Whiskers.log("trying to read " + value);
 						if (!value.equals("")) {
 
-							main.log("Read movie " + value + " at " + cell2.getAddress());
+							Whiskers.log("Read movie " + value + " at " + cell2.getAddress());
 							name = value;
 							start_time = cell1.getStringCellValue();
-							main.log("Read time " + start_time + " at " + cell1.getAddress());
+							Whiskers.log("Read time " + start_time + " at " + cell1.getAddress());
 							if (cellIterator.hasNext())
 								cell1 = cellIterator.next();
 							break_time = cell1.getStringCellValue();
-							main.log("Read time " + break_time + " at " + cell1.getAddress());
+							Whiskers.log("Read time " + break_time + " at " + cell1.getAddress());
 							if (cellIterator.hasNext())
 								cell1 = cellIterator.next();
 							end_time = cell1.getStringCellValue();
-							main.log("Read time " + end_time + " at " + cell1.getAddress());
+							Whiskers.log("Read time " + end_time + " at " + cell1.getAddress());
 
 							/* Try to read from next cell*/
 							if (cellIterator.hasNext())
@@ -202,7 +223,6 @@ public class Programming implements Serializable {
 								cell2 = cellIterator2.next();
 							if(cellIterator2.hasNext())
 								cell2 = cellIterator2.next();
-
 							Projection p = new Projection(name, start_time, break_time, end_time, date);
 							if(program_date == null)
 								program_date = date;
@@ -227,11 +247,11 @@ public class Programming implements Serializable {
 
 
 					state = HALL_NUM;
-					if(Integer.parseInt(hall) == main.getMAX_HALL())
-					{
-						//row1 = iterator.next();
-						state = READ_DATE;
-					}
+					//if(Integer.parseInt(hall) == Whiskers.getMAX_HALL())
+					//{
+					//	//row1 = iterator.next();
+					//	state = READ_DATE;
+					//}
 				}
 
 			}
@@ -239,7 +259,8 @@ public class Programming implements Serializable {
 			workbook.close();
 			inputStream.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
+			return;
 		}
 
 	}
@@ -262,7 +283,7 @@ public class Programming implements Serializable {
 		movie_titles.add(p.getName());
 	}
 
-	private static Workbook getRelevantWorkbook(FileInputStream inputStream, String excelFilePath) throws IOException {
+	public static Workbook getRelevantWorkbook(FileInputStream inputStream, String excelFilePath) throws IOException {
 		Workbook workbook = null;
 
 		if (excelFilePath.endsWith("xls")) {
@@ -279,8 +300,8 @@ public class Programming implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder b = new StringBuilder();
-		b.append("Printing programming summary for " + filename + " - " + program_date + "\n");
-		for(int i=1;i<=main.getMAX_HALL();i++)
+		b.append("Printing programming summary for " + filename + " - " + program_date + " "+Title +"\n");
+		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
 			{
@@ -305,7 +326,7 @@ public class Programming implements Serializable {
 	public String prettyPrint() {
 		final StringBuilder b = new StringBuilder();
 		System.out.println(Title);
-		for(int i=1;i<=main.getMAX_HALL();i++)
+		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
 			{
@@ -347,5 +368,13 @@ public class Programming implements Serializable {
 
 	public void setProgram_date(String program_date) {
 		this.program_date = program_date;
+	}
+
+	public int getNum_projections() {
+		return num_projections;
+	}
+
+	public void setNum_projections(int num_projections) {
+		this.num_projections = num_projections;
 	}
 }

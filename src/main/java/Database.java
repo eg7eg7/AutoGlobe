@@ -69,13 +69,16 @@ public class Database {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0;i<programmingList.size();i++)
 		{
-			sb.append(programmingList.get(i).getProgram_date() + "\n");
+			Programming p = programmingList.get(i);
+			sb.append(p.getProgram_date() + " " + p.getTitle() + " " + p.getNum_projections() + " Projections\n");
 		}
 		return sb.toString();
 	}
 	
 	public void printPrettyProgram(int i)
 	{
+		if(i<1 || i > programmingList.size())
+			return;
 		StringBuilder sb = new StringBuilder();
 		sb.append(programmingList.get(i).toString());
 		sb.append(showNewMovies(i));
