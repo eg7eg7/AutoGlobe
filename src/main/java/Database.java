@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Database {
 	private static ArrayList<Programming> programmingList = new ArrayList<Programming>();
 	private static String globeFile = "weeklyprog.dat";
@@ -75,33 +78,40 @@ public class Database {
 		return sb.toString();
 	}
 	
-	public void printPrettyProgram(int i)
+	public String printPrettyProgram(int i)
 	{
 		if(i<1 || i > programmingList.size())
-			return;
+			return "";
 		StringBuilder sb = new StringBuilder();
 		sb.append(programmingList.get(i).toString());
 		sb.append(showNewMovies(i));
 		sb.append(showExpiredMovies(i));
-		System.out.println(sb.toString());
+		return sb.toString();
 	}
 
+	public String printPrettyProgram(Programming p) {
+		for(int i=0;i<programmingList.size();i++)
+			if(p.equals(programmingList.get(i)))
+				return printPrettyProgram(i);
+		return "";
+	}
+	
 	public String showExpiredMovies(int i) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nExpired movies :\n");
-		if(i-2 < 0)
+		if(i-1 < 0)
 		{
 
 			sb.append("No expired movies");
 			return sb.toString();
 		}
-		else if (i>programmingList.size())
+		else if (i>programmingList.size()-1)
 		{
 			sb.append("Invalid programming value");
 			return sb.toString();
 		}
-		Set<String> old_movies = programmingList.get(i-2).getMovie_titles();
-		Set<String> new_movies = programmingList.get(i-1).getMovie_titles();
+		Set<String> old_movies = programmingList.get(i-1).getMovie_titles();
+		Set<String> new_movies = programmingList.get(i).getMovie_titles();
 		Set<String> removed_movies = new HashSet<String>();
 
 
@@ -125,19 +135,19 @@ public class Database {
 	public String showNewMovies(int i) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\nNew movies :\n");
-		if(i-2 < 0)
+		if(i-1 < 0)
 		{
 
 			sb.append("No new movies");
 			return sb.toString();
 		}
-		else if (i>programmingList.size())
+		else if (i>programmingList.size()-1)
 		{
 			sb.append("Invalid programming value");
 			return sb.toString();
 		}
-		Set<String> old_movies = programmingList.get(i-2).getMovie_titles();
-		Set<String> new_movies = programmingList.get(i-1).getMovie_titles();
+		Set<String> old_movies = programmingList.get(i-1).getMovie_titles();
+		Set<String> new_movies = programmingList.get(i).getMovie_titles();
 		Set<String> brand_new = new HashSet<String>();
 
 
@@ -180,6 +190,38 @@ public class Database {
 				}
 		}
 	}
+
+	public ObservableList<String> getProgramList() {
+		ObservableList<String> list = FXCollections.observableArrayList();
+		for(int i=0;i<programmingList.size();i++)
+		{
+			list.add(i, programmingList.get(i).getKey());
+		}
+		return list;
+	}
+
+	public Programming getProgramming(String key) {
+		for(Programming p:programmingList)
+			if(p.getKey().equals(key))
+				return p;
+		return null;
+	}
+
+	public void removeProgram(String key) {
+		Programming t=null;
+		for(Programming p:programmingList)
+		{
+			if(p.getKey().equals(key))
+				{
+				t=p;
+				break;
+				}
+		}
+		programmingList.remove(t);
+		
+	}
+
+	
 
 
 }

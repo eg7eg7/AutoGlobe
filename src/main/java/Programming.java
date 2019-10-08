@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -35,6 +36,7 @@ public class Programming implements Serializable {
 	private String program_date=null;
 	private int state = BEGIN;
 	private int num_projections = 0;
+	private int sheet_num;
 	public Programming() {
 		movie_titles = new HashSet<String>();
 		projections = new HashMap<Integer, Set<Projection>>();
@@ -50,6 +52,19 @@ public class Programming implements Serializable {
 	}
 
 
+	public String getKey()
+	{
+		return program_date + " " + filename + " Sheet " + sheet_num;
+	}
+	
+
+	public String getTitle() {
+		return Title;
+	}
+
+	public int getSheet_num() {
+		return sheet_num;
+	}
 
 	@Override
 	public int hashCode() {
@@ -57,6 +72,7 @@ public class Programming implements Serializable {
 		int result = 1;
 		result = prime * result + num_projections;
 		result = prime * result + ((program_date == null) ? 0 : program_date.hashCode());
+		result = prime * result + sheet_num;
 		return result;
 	}
 
@@ -76,11 +92,13 @@ public class Programming implements Serializable {
 				return false;
 		} else if (!program_date.equals(other.program_date))
 			return false;
+		if (sheet_num != other.sheet_num)
+			return false;
 		return true;
 	}
 
-	public String getTitle() {
-		return Title;
+	public void setSheet_num(int sheet_num) {
+		this.sheet_num = sheet_num;
 	}
 
 	public void setTitle(String title) {
@@ -99,7 +117,7 @@ public class Programming implements Serializable {
 		return serialVersionUID;
 	}
 
-	public Programming(String xlsFilePath) {
+	public Programming(String xlsFilePath) throws IOException {
 		this();
 		readExcel(xlsFilePath);
 		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
@@ -118,7 +136,7 @@ public class Programming implements Serializable {
 		}
 	}
 
-	private void readExcel(String xlsFilePath) {
+	private void readExcel(String xlsFilePath) throws IOException {
 		setFilename(xlsFilePath);
 		int count=0;
 		String date = "";
@@ -128,14 +146,14 @@ public class Programming implements Serializable {
 		String break_time;
 		String end_time;
 		File file;
-		try {
+
 			file = new File(xlsFilePath);
 			System.out.println("Reading from : " + file.getAbsoluteFile());
 			FileInputStream inputStream = new FileInputStream(file);
 			Whiskers.log("reading " + xlsFilePath);
 			Workbook workbook = getRelevantWorkbook(inputStream, xlsFilePath);
-			Sheet sheet = workbook.getSheetAt(Whiskers.getCHOSEN_SHEET());
-			//workbook.getNumberOfSheets();
+			sheet_num = Whiskers.getCHOSEN_SHEET();
+			Sheet sheet = workbook.getSheetAt(sheet_num);
 			Iterator<Row> iterator = sheet.iterator();
 			Iterator<Cell> cellIterator = null;
 			Iterator<Cell> cellIterator2 = null;
@@ -247,22 +265,13 @@ public class Programming implements Serializable {
 
 
 					state = HALL_NUM;
-					//if(Integer.parseInt(hall) == Whiskers.getMAX_HALL())
-					//{
-					//	//row1 = iterator.next();
-					//	state = READ_DATE;
-					//}
 				}
 
 			}
 			System.out.println("Finished adding " + count + " projections");
 			workbook.close();
 			inputStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-
+	
 	}
 
 	private String toTitle(String[] header) {
@@ -331,7 +340,9 @@ public class Programming implements Serializable {
 			if(projections.containsKey(i))
 			{
 
-				b.append("\n---------------HALL " + i + "-----------------\n" + movies_hall.get(i));
+				b.append("\n---------------HALL " + i + "-----------------\n");
+				for(String s : movies_hall.get(i))
+					b.append(s + "\n");
 			}
 		}
 
@@ -350,7 +361,8 @@ public class Programming implements Serializable {
 	}
 
 	public void setFilename(String filename) {
-		this.filename = filename;
+		String s[] = filename.split("\\\\");
+		this.filename = s[s.length-1];
 	}
 
 	public Map<Integer, Set<String>> getMovies_hall() {
