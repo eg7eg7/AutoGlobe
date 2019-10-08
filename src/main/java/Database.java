@@ -63,7 +63,7 @@ public class Database {
 		if (!programmingList.contains(p))
 		{
 			programmingList.add(p);
-			programmingList.sort(new ProgrammingCompare());
+			programmingList.sort(new ProgrammingCompare().reversed());
 		}
 	}
 
@@ -148,6 +148,10 @@ public class Database {
 		}
 		Set<String> old_movies = programmingList.get(i-1).getMovie_titles();
 		Set<String> new_movies = programmingList.get(i).getMovie_titles();
+
+		System.out.println("old date - " + programmingList.get(i-1).getProgram_date());
+
+		System.out.println("new date - " + programmingList.get(i).getProgram_date());
 		Set<String> brand_new = new HashSet<String>();
 
 
