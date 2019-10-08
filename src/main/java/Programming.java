@@ -153,8 +153,10 @@ public class Programming implements Serializable {
 			FileInputStream inputStream = new FileInputStream(file);
 			Whiskers.log("reading " + xlsFilePath);
 			Workbook workbook = getRelevantWorkbook(inputStream, xlsFilePath);
+			
 			sheet_num = Whiskers.getCHOSEN_SHEET();
 			Sheet sheet = workbook.getSheetAt(sheet_num);
+
 			Iterator<Row> iterator = sheet.iterator();
 			Iterator<Cell> cellIterator = null;
 			Iterator<Cell> cellIterator2 = null;

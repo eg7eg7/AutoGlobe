@@ -80,7 +80,7 @@ public class Database {
 
 	public String printPrettyProgram(int i)
 	{
-		if(i<1 || i > programmingList.size())
+		if(i > programmingList.size())
 			return "";
 		StringBuilder sb = new StringBuilder();
 		sb.append(programmingList.get(i).toString());
