@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -26,6 +25,8 @@ public class Programming implements Serializable {
 	private final static int HALL_NUM = 2;
 	private final static int READ_MOVIES = 3;
 
+	private enum ad_times{MORNING,EVENING,NIGHT};
+	
 	private static final long serialVersionUID = 1L;
 	private Set<String> movie_titles;
 	// Set of movies for the week
@@ -317,19 +318,69 @@ public class Programming implements Serializable {
 				b.append("\n---------------HALL " + i + "-----------------\n");
 				for(String s : movies_hall.get(i))
 				{
-					b.append(s + "\n");
+					
+					b.append(s + getTimes(i,s) +"\n");
 				}
 			}
 		}
-
-		movie_titles.forEach(new Consumer<String>() {
-			public void accept(String s) {
-				//b.append(s + "\n");
-			}
-		});
-
-
 		return b.toString();
+	}
+
+	private String getTimes(int hall_num, String movie_name) {
+		StringBuilder sb = new StringBuilder();
+		boolean morning=false;
+		boolean evening=false;
+		boolean night=false;
+		sb.append("(");
+		for(Projection p : projections.get(hall_num))
+		{
+			if(p.getName().equals(movie_name))
+			{
+				ad_times result=null;
+				result = getTime(p);
+				if(result.equals(ad_times.MORNING))
+					morning = true;
+				else if(result.equals(ad_times.EVENING))
+					evening = true;
+				else if(result.equals(ad_times.NIGHT))
+					night = true;
+			}
+			
+			if(morning && evening && night)
+				break;
+		}
+		
+		boolean sign = false;
+		if(morning)
+		{
+			sb.append(" 7 ");
+			sign=true;
+		}
+		if(evening)
+		{
+			if(sign)
+				sb.append(",");
+			sb.append(" 17 ");
+			sign = true;
+		}
+		if(night)
+		{
+			if(sign)
+				sb.append(",");
+			sb.append(" 21 ");
+		}
+		sb.append(")");
+		if(!morning && !evening && !night)
+			return "[            ]";
+		return sb.toString();
+	}
+
+	private ad_times getTime(Projection p) {
+		if(p.getTime_hour() >= 7 && ((p.getTime_hour() == 17 && p.getTime_mins() < 30) || p.getTime_hour() < 17))
+			return ad_times.MORNING;
+		else if(( (p.getTime_hour() == 21 && p.getTime_mins() < 20) || (p.getTime_hour() < 21) ) && ((p.getTime_hour() == 17 && p.getTime_mins() >= 30) || p.getTime_hour() > 17))
+			return ad_times.EVENING;
+		return ad_times.NIGHT;
 	}
 
 	public String prettyPrint() {

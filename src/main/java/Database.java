@@ -13,15 +13,15 @@ import javafx.collections.ObservableList;
 
 public class Database {
 	private static ArrayList<Programming> programmingList = new ArrayList<Programming>();
-	private static String globeFile = "weeklyprog.dat";
-	
+	private static String globeFile = "weeklyprog.whis";
+
 	public Database() {
 	}
 
 	public void fillDatabaseFromFile() {
 		programmingList.clear();
 		int num_programs = 0;
-		
+
 		ObjectInputStream oos = null;
 		try {
 			FileInputStream fos = new FileInputStream(globeFile);
@@ -36,7 +36,7 @@ public class Database {
 					e.printStackTrace();
 				}
 			}
-				
+
 		}
 		catch (IOException e) {
 			System.out.println("Data file cannot be found");
@@ -77,7 +77,7 @@ public class Database {
 		}
 		return sb.toString();
 	}
-	
+
 	public String printPrettyProgram(int i)
 	{
 		if(i<1 || i > programmingList.size())
@@ -95,10 +95,10 @@ public class Database {
 				return printPrettyProgram(i);
 		return "";
 	}
-	
+
 	public String showExpiredMovies(int i) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nExpired movies :\n");
+		sb.append("\n-------------REMOVED MOVIES-------------\n");
 		if(i-1 < 0)
 		{
 
@@ -126,15 +126,15 @@ public class Database {
 				removed_movies.add(movie_name);
 			}
 		}
-		
+		int count = 1;
 		for(String s : removed_movies)
-			sb.append(s + "\n");
+			sb.append(count++ + ". " + s + "\n");
 		return sb.toString();
 	}
-	
+
 	public String showNewMovies(int i) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nNew movies :\n");
+		sb.append("\n-------------NEW MOVIES-------------\n");
 		if(i-1 < 0)
 		{
 
@@ -149,9 +149,7 @@ public class Database {
 		Set<String> old_movies = programmingList.get(i-1).getMovie_titles();
 		Set<String> new_movies = programmingList.get(i).getMovie_titles();
 
-		System.out.println("old date - " + programmingList.get(i-1).getProgram_date());
-
-		System.out.println("new date - " + programmingList.get(i).getProgram_date());
+		Whiskers.log("checking new movies from " + programmingList.get(i-1).getProgram_date() +" to " +programmingList.get(i).getProgram_date());
 		Set<String> brand_new = new HashSet<String>();
 
 
@@ -166,9 +164,9 @@ public class Database {
 				brand_new.add(movie_name);
 			}
 		}
-		
+		int count = 1;
 		for(String s : brand_new)
-			sb.append(s + "\n");
+			sb.append(count++ + ". " + s + "\n");
 		return sb.toString();
 	}
 
@@ -216,16 +214,16 @@ public class Database {
 		for(Programming p:programmingList)
 		{
 			if(p.getKey().equals(key))
-				{
+			{
 				t=p;
 				break;
-				}
+			}
 		}
 		programmingList.remove(t);
-		
+
 	}
 
-	
+
 
 
 }

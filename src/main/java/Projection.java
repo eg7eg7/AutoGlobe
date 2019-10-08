@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class Projection implements Serializable {
 	/**
@@ -10,6 +9,7 @@ public class Projection implements Serializable {
 	private String type; // movie or projection
 	
 	private int time_hour;
+	private int time_mins;
 	
 	private String time_hour_string;
 	private String time_break_string;
@@ -49,12 +49,17 @@ public class Projection implements Serializable {
 	}
 
 	public void setTime_hour(String time_hour) {
-		String s = "";
+		
 		try {
 			if (!time_hour.equals(""))
-				s = time_hour.replace(":", "");
-			this.time_hour = Integer.parseInt(s);
-			setTime_hour_string(time_hour);
+			{
+				String s[] = time_hour.split(":");
+				
+				this.time_hour = Integer.parseInt(s[0]);
+				this.time_mins = Integer.parseInt(s[1]);
+				setTime_hour_string(time_hour);
+			}
+			
 		} catch (Exception e) {
 			Whiskers.log(e.toString());
 		}
@@ -254,5 +259,13 @@ public class Projection implements Serializable {
 		if (year != other.year)
 			return false;
 		return true;
+	}
+
+	public int getTime_mins() {
+		return time_mins;
+	}
+
+	public void setTime_mins(int time_mins) {
+		this.time_mins = time_mins;
 	}
 }
