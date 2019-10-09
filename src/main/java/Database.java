@@ -73,7 +73,7 @@ public class Database {
 		for(int i = 0;i<programmingList.size();i++)
 		{
 			Programming p = programmingList.get(i);
-			sb.append(p.getProgram_date() + " " + p.getTitle() + " " + p.getNum_projections() + " Projections\n");
+			sb.append(p.getProgram_date() + " " + p.getTitle() + "\n" + p.getNum_projections() + " Projections\n" + p.getFilename() + " sheet " + p.getSheet_num() + "\n\n");
 		}
 		return sb.toString();
 	}
@@ -86,6 +86,7 @@ public class Database {
 		sb.append(programmingList.get(i).toString());
 		sb.append(showNewMovies(i));
 		sb.append(showExpiredMovies(i));
+		sb.append("\n\n\n\nAlways verify the summary against the original programming file before use");
 		return sb.toString();
 	}
 

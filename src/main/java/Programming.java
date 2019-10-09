@@ -26,7 +26,7 @@ public class Programming implements Serializable {
 	private final static int READ_MOVIES = 3;
 
 	private enum ad_times{MORNING,EVENING,NIGHT};
-	
+
 	private static final long serialVersionUID = 1L;
 	private Set<String> movie_titles;
 	// Set of movies for the week
@@ -57,7 +57,7 @@ public class Programming implements Serializable {
 	{
 		return program_date + " " + filename + " Sheet " + sheet_num;
 	}
-	
+
 
 	public String getTitle() {
 		return Title;
@@ -130,7 +130,7 @@ public class Programming implements Serializable {
 					if(movies_hall.get(i) == null)
 						movies_hall.put(i, new HashSet<String>());
 					movies_hall.get(i).add(p.getName());
-					
+
 				}
 				num_projections+= projections.get(i).size();
 			}
@@ -148,133 +148,133 @@ public class Programming implements Serializable {
 		String end_time;
 		File file;
 
-			file = new File(xlsFilePath);
-			System.out.println("Reading from : " + file.getAbsoluteFile());
-			FileInputStream inputStream = new FileInputStream(file);
-			Whiskers.log("reading " + xlsFilePath);
-			Workbook workbook = getRelevantWorkbook(inputStream, xlsFilePath);
-			
-			sheet_num = Whiskers.getCHOSEN_SHEET();
-			Sheet sheet = workbook.getSheetAt(sheet_num);
+		file = new File(xlsFilePath);
+		System.out.println("Reading from : " + file.getAbsoluteFile());
+		FileInputStream inputStream = new FileInputStream(file);
+		Whiskers.log("reading " + xlsFilePath);
+		Workbook workbook = getRelevantWorkbook(inputStream, xlsFilePath);
 
-			Iterator<Row> iterator = sheet.iterator();
-			Iterator<Cell> cellIterator = null;
-			Iterator<Cell> cellIterator2 = null;
-			Row row1;
-			Row row2;
-			Cell cell1=null;
-			Cell cell2;
-			String value=null;
-			boolean from_hall =false;
-			while (iterator.hasNext()) {
-				if(!from_hall)
-				{
-					row1 = iterator.next();
-					cellIterator = row1.cellIterator();
-					
-				}
-				switch (state) {
-				case BEGIN:
-				case READ_DATE:
-					if(!from_hall)
-						{
-						cell1 = cellIterator.next();
-						
-						}
-					else
-						from_hall = false;
-					
-					String[] header = cell1.getStringCellValue().split(" ");
-					if(state == BEGIN)
-					{
-						Title = toTitle(header);
-						Whiskers.log("Reading Programming for" + Title);
-					}
-					date = header[header.length - 1];
-					Whiskers.log("Read date: " + date + " at " + cell1.getAddress());
-					state = HALL_NUM;
-					row1 = iterator.next();
-					break;
-				case HALL_NUM:
-					cell1 = cellIterator.next();
-					
-					hall = cell1.getStringCellValue();
-					Whiskers.log("Read hall num: " + hall + " at " + cell1.getAddress());
-					try {
-						Integer.parseInt(hall);
-						
-					}
-					catch(NumberFormatException e)
-					{
-						Whiskers.log("change state to READ DATE");
-						from_hall = true;
-						state = READ_DATE;
-						break;
-					}
-					state = READ_MOVIES;
-				case READ_MOVIES:
-					cell1 = cellIterator.next();// hour viewer
-					row2 = iterator.next();
-					cellIterator2 = row2.cellIterator(); //title viewer
+		sheet_num = Whiskers.getCHOSEN_SHEET();
+		Sheet sheet = workbook.getSheetAt(sheet_num);
 
-					cell2 = cellIterator2.next();//movie viewer
-					while (cellIterator2.hasNext()) {
-						cell2 = cellIterator2.next();//movie viewer
-						value = cell2.getStringCellValue();
-						Whiskers.log("trying to read " + value);
-						if (!value.equals("")) {
-
-							Whiskers.log("Read movie " + value + " at " + cell2.getAddress());
-							name = value;
-							start_time = cell1.getStringCellValue();
-							Whiskers.log("Read time " + start_time + " at " + cell1.getAddress());
-							if (cellIterator.hasNext())
-								cell1 = cellIterator.next();
-							break_time = cell1.getStringCellValue();
-							Whiskers.log("Read time " + break_time + " at " + cell1.getAddress());
-							if (cellIterator.hasNext())
-								cell1 = cellIterator.next();
-							end_time = cell1.getStringCellValue();
-							Whiskers.log("Read time " + end_time + " at " + cell1.getAddress());
-
-							/* Try to read from next cell*/
-							if (cellIterator.hasNext())
-								cell1 = cellIterator.next();
-							if(cellIterator2.hasNext())
-								cell2 = cellIterator2.next();
-							if(cellIterator2.hasNext())
-								cell2 = cellIterator2.next();
-							Projection p = new Projection(name, start_time, break_time, end_time, date);
-							if(program_date == null)
-								program_date = date;
-							count++;
-							addProjection(Integer.parseInt(hall), p);
-						}
-						else //empty cell
-						{
-							cell1 = cellIterator.next();
-							cell1 = cellIterator.next();
-							if(cellIterator.hasNext())
-								cell1 = cellIterator.next();
-
-
-							if(cellIterator2.hasNext())
-								cell2 = cellIterator2.next();
-							if(cellIterator2.hasNext())
-								cell2 = cellIterator2.next();
-
-						}
-					}
-
-
-					state = HALL_NUM;
-				}
+		Iterator<Row> iterator = sheet.iterator();
+		Iterator<Cell> cellIterator = null;
+		Iterator<Cell> cellIterator2 = null;
+		Row row1;
+		Row row2;
+		Cell cell1=null;
+		Cell cell2;
+		String value=null;
+		boolean from_hall =false;
+		while (iterator.hasNext()) {
+			if(!from_hall)
+			{
+				row1 = iterator.next();
+				cellIterator = row1.cellIterator();
 
 			}
-			System.out.println("Finished adding " + count + " projections");
-			workbook.close();
-			inputStream.close();
-	
+			switch (state) {
+			case BEGIN:
+			case READ_DATE:
+				if(!from_hall)
+				{
+					cell1 = cellIterator.next();
+
+				}
+				else
+					from_hall = false;
+
+				String[] header = cell1.getStringCellValue().split(" ");
+				if(state == BEGIN)
+				{
+					Title = toTitle(header);
+					Whiskers.log("Reading Programming for" + Title);
+				}
+				date = header[header.length - 1];
+				Whiskers.log("Read date: " + date + " at " + cell1.getAddress());
+				state = HALL_NUM;
+				row1 = iterator.next();
+				break;
+			case HALL_NUM:
+				cell1 = cellIterator.next();
+
+				hall = cell1.getStringCellValue();
+				Whiskers.log("Read hall num: " + hall + " at " + cell1.getAddress());
+				try {
+					Integer.parseInt(hall);
+
+				}
+				catch(NumberFormatException e)
+				{
+					Whiskers.log("change state to READ DATE");
+					from_hall = true;
+					state = READ_DATE;
+					break;
+				}
+				state = READ_MOVIES;
+			case READ_MOVIES:
+				cell1 = cellIterator.next();// hour viewer
+				row2 = iterator.next();
+				cellIterator2 = row2.cellIterator(); //title viewer
+
+				cell2 = cellIterator2.next();//movie viewer
+				while (cellIterator2.hasNext()) {
+					cell2 = cellIterator2.next();//movie viewer
+					value = cell2.getStringCellValue();
+					Whiskers.log("trying to read " + value);
+					if (!value.equals("")) {
+
+						Whiskers.log("Read movie " + value + " at " + cell2.getAddress());
+						name = value;
+						start_time = cell1.getStringCellValue();
+						Whiskers.log("Read time " + start_time + " at " + cell1.getAddress());
+						if (cellIterator.hasNext())
+							cell1 = cellIterator.next();
+						break_time = cell1.getStringCellValue();
+						Whiskers.log("Read time " + break_time + " at " + cell1.getAddress());
+						if (cellIterator.hasNext())
+							cell1 = cellIterator.next();
+						end_time = cell1.getStringCellValue();
+						Whiskers.log("Read time " + end_time + " at " + cell1.getAddress());
+
+						/* Try to read from next cell*/
+						if (cellIterator.hasNext())
+							cell1 = cellIterator.next();
+						if(cellIterator2.hasNext())
+							cell2 = cellIterator2.next();
+						if(cellIterator2.hasNext())
+							cell2 = cellIterator2.next();
+						Projection p = new Projection(name, start_time, break_time, end_time, date);
+						if(program_date == null)
+							program_date = date;
+						count++;
+						addProjection(Integer.parseInt(hall), p);
+					}
+					else //empty cell
+					{
+						cell1 = cellIterator.next();
+						cell1 = cellIterator.next();
+						if(cellIterator.hasNext())
+							cell1 = cellIterator.next();
+
+
+						if(cellIterator2.hasNext())
+							cell2 = cellIterator2.next();
+						if(cellIterator2.hasNext())
+							cell2 = cellIterator2.next();
+
+					}
+				}
+
+
+				state = HALL_NUM;
+			}
+
+		}
+		System.out.println("Finished adding " + count + " projections");
+		workbook.close();
+		inputStream.close();
+
 	}
 
 	private String toTitle(String[] header) {
@@ -312,7 +312,7 @@ public class Programming implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder b = new StringBuilder();
-		b.append("Printing programming summary for " + filename + " - " + program_date + " "+Title +"\n");
+		b.append("Programming summary for " + filename + " - " + program_date + " "+ Title +"\n");
 		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
@@ -320,8 +320,8 @@ public class Programming implements Serializable {
 				b.append("\n---------------HALL " + i + "-----------------\n");
 				for(String s : movies_hall.get(i))
 				{
-					
-					b.append(s + getTimes(i,s) +"\n");
+
+					b.append("--" + s + "  " + getTimes(i,s) + "\n");
 				}
 			}
 		}
@@ -347,11 +347,11 @@ public class Programming implements Serializable {
 				else if(result.equals(ad_times.NIGHT))
 					night = true;
 			}
-			
+
 			if(morning && evening && night)
 				break;
 		}
-		
+
 		boolean sign = false;
 		if(morning)
 		{
