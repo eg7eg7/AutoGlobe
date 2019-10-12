@@ -4,7 +4,7 @@ public class ProgrammingCompare implements Comparator<Programming>{
 
 	@Override
 	public int compare(Programming o1, Programming o2) {
-		//compare dates in the format MM/DD/YYYY
+		//compare dates in the format DD/MM/YYYY
 		String s1 = o1.getProgram_date();
 		String s2 = o2.getProgram_date();
 		if(s1 == null)
@@ -17,10 +17,10 @@ public class ProgrammingCompare implements Comparator<Programming>{
 			return -1;
 		int y1 =Integer.parseInt(s1_arr[2]);
 		int y2 =Integer.parseInt(s2_arr[2]);
-		int m1 =Integer.parseInt(s1_arr[0]);
-		int m2 =Integer.parseInt(s2_arr[0]);
-		int d1 =Integer.parseInt(s1_arr[1]);
-		int d2 =Integer.parseInt(s2_arr[1]);
+		int m1 =Integer.parseInt(s1_arr[1]);
+		int m2 =Integer.parseInt(s2_arr[1]);
+		int d1 =Integer.parseInt(s1_arr[0]);
+		int d2 =Integer.parseInt(s2_arr[0]);
 		if(y1 < y2)
 			return 1;
 		else if (y1 > y2)

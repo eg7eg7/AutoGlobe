@@ -55,7 +55,7 @@ public class Programming implements Serializable {
 
 	public String getKey()
 	{
-		return program_date + " " + filename + " Sheet " + sheet_num;
+		return program_date + "\t\tSheet " + sheet_num;
 	}
 
 
@@ -190,7 +190,7 @@ public class Programming implements Serializable {
 					Title = toTitle(header);
 					Whiskers.log("Reading Programming for" + Title);
 				}
-				date = header[header.length - 1];
+				date = toDDMM(header[header.length - 1]);
 				Whiskers.log("Read date: " + date + " at " + cell1.getAddress());
 				state = HALL_NUM;
 				row1 = iterator.next();
@@ -277,6 +277,15 @@ public class Programming implements Serializable {
 
 	}
 
+	private String toDDMM(String string) {
+		String date[] = string.split("/");
+		if(date[0].length() == 1)
+			date[0] = "0" + date[0];
+		if(date[1].length() == 1)
+			date[1] = "0" + date[1];
+		return date[1] + "/" +date[0]+ "/" + date[2];
+	}
+
 	private String toTitle(String[] header) {
 		StringBuilder b = new StringBuilder("");
 		for(int i=0;i<header.length-2;i++)
@@ -312,16 +321,16 @@ public class Programming implements Serializable {
 	@Override
 	public String toString() {
 		final StringBuilder b = new StringBuilder();
-		b.append("Programming summary for " + filename + " - " + program_date + " "+ Title +"\n");
+		b.append("Programming summary for " + filename + " - " + program_date + " "+ Title +"\r\n");
 		for(int i=1;i<=Whiskers.getMAX_HALL();i++)
 		{
 			if(projections.containsKey(i))
 			{
-				b.append("\n---------------HALL " + i + "-----------------\n");
+				b.append("\r\n---------------HALL " + i + "-----------------\r\n");
 				for(String s : movies_hall.get(i))
 				{
 
-					b.append("--" + s + "  " + getTimes(i,s) + "\n");
+					b.append("--" + s + "  " + getTimes(i,s) + "\r\n");
 				}
 			}
 		}
@@ -393,15 +402,15 @@ public class Programming implements Serializable {
 			if(projections.containsKey(i))
 			{
 
-				b.append("\n---------------HALL " + i + "-----------------\n");
+				b.append("\r\n---------------HALL " + i + "-----------------\r\n");
 				for(String s : movies_hall.get(i))
-					b.append(s + "\n");
+					b.append(s + "\r\n");
 			}
 		}
 
 		movie_titles.forEach(new Consumer<String>() {
 			public void accept(String s) {
-				b.append(s + "\n");
+				b.append(s + "\r\n");
 			}
 		});
 

@@ -73,7 +73,7 @@ public class Database {
 		for(int i = 0;i<programmingList.size();i++)
 		{
 			Programming p = programmingList.get(i);
-			sb.append(p.getProgram_date() + " " + p.getTitle() + "\n" + p.getNum_projections() + " Projections\n" + p.getFilename() + " sheet " + p.getSheet_num() + "\n\n");
+			sb.append(p.getProgram_date() + " " + p.getTitle() + "\r\n" + p.getNum_projections() + " Projections\r\n" + p.getFilename() + " sheet " + p.getSheet_num() + "\r\n\r\n");
 		}
 		return sb.toString();
 	}
@@ -86,7 +86,7 @@ public class Database {
 		sb.append(programmingList.get(i).toString());
 		sb.append(showNewMovies(i));
 		sb.append(showExpiredMovies(i));
-		sb.append("\n\n\n\nAlways verify the summary against the original programming file before use");
+		sb.append("\r\n\r\n\r\nAlways verify the summary against the original programming file before use");
 		return sb.toString();
 	}
 
@@ -99,7 +99,7 @@ public class Database {
 
 	public String showExpiredMovies(int i) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n-------------REMOVED MOVIES-------------\n");
+		sb.append("\r\n\r\n-------------REMOVED MOVIES-------------\r\n\r\n");
 		if(i-1 < 0)
 		{
 
@@ -127,15 +127,15 @@ public class Database {
 				removed_movies.add(movie_name);
 			}
 		}
-		int count = 1;
+		
 		for(String s : removed_movies)
-			sb.append(count++ + ". " + s + "\n");
+			sb.append("-- " + s + "\r\n");
 		return sb.toString();
 	}
 
 	public String showNewMovies(int i) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n-------------NEW MOVIES-------------\n");
+		sb.append("\r\n\r\n-------------NEW MOVIES-------------\r\n\r\n");
 		if(i-1 < 0)
 		{
 
@@ -165,9 +165,8 @@ public class Database {
 				brand_new.add(movie_name);
 			}
 		}
-		int count = 1;
 		for(String s : brand_new)
-			sb.append(count++ + ". " + s + "\n");
+			sb.append("--" + s + "\r\n");
 		return sb.toString();
 	}
 
